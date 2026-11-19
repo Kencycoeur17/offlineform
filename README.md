@@ -69,6 +69,26 @@ function ContactForm() {
 
 The package must be built or linked locally until a public npm release exists.
 
+## Interactive demo
+
+Run the demo locally:
+
+```bash
+npm install
+npm run demo:dev
+```
+
+Open http://127.0.0.1:4173 and enter a draft, reload the page, or discard it. The demo does not send data to a server.
+
+Browser end-to-end tests use Playwright:
+
+```bash
+npx playwright install chromium
+npm run test:e2e
+```
+
+CI also builds the demo and runs the Chromium tests. Browser test results should be verified on the [Actions page](https://github.com/Kencycoeur17/offlineform/actions).
+
 ## How it works
 
 When enabled, the hook loads a stored draft after mount, then saves subsequent edits to a browser storage adapter. It does not assume that browser storage is always available or durable.
@@ -79,7 +99,7 @@ When enabled, the hook loads a stored draft after mount, then saves subsequent e
 - Do not persist passwords, payment details, health information or other sensitive records without a separate security design.
 - Draft persistence is not server submission.
 - Browser storage can be evicted or cleared.
-- Current tests cover storage utilities; React integration and browser end-to-end tests are planned.
+- Storage utility tests and browser end-to-end tests are included; broader browser compatibility and security reviews remain planned.
 
 See [privacy guidance](docs/privacy.md), [synchronization roadmap](docs/synchronization.md) and [security policy](SECURITY.md).
 
@@ -87,8 +107,9 @@ See [privacy guidance](docs/privacy.md), [synchronization roadmap](docs/synchron
 
 - [x] Draft serialization, restoration, expiration and storage tests
 - [x] Opt-in React hook with TypeScript types
-- [ ] React component integration tests
-- [ ] Runnable demo and offline network simulation
+- [x] Browser end-to-end tests for restore, discard and preview
+- [x] Runnable React demo
+- [ ] Simulated network interruptions and browser compatibility tests
 - [ ] IndexedDB adapter
 - [ ] Explicit submission queue with idempotency safeguards
 - [ ] npm package publication
